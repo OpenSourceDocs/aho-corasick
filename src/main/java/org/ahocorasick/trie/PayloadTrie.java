@@ -17,15 +17,16 @@ import org.ahocorasick.util.ListElementRemoval;
 import org.ahocorasick.util.ListElementRemoval.RemoveElementPredicate;
 
 /**
- * A trie implementation, based on the Aho-Corasick white paper, Bell
- * technologies: http://cr.yp.to/bib/1975/aho.pdf
- * <p>
+ * A trie implementation that carries a payload. See {@link Trie} for
+ * details on usage.
  *
+ * <p>
  * The payload trie adds the possibility to specify emitted payloads for each
  * added keyword.
+ * </p>
  * 
  * @author Daniel Beck
- * @param <T> The type of the supplied of the payload
+ * @param <T> The type of the supplied of the payload.
  */
 public class PayloadTrie<T> {
 
@@ -83,6 +84,7 @@ public class PayloadTrie<T> {
      * Tokenizes the specified text and returns the emitted outputs.
      * 
      * @param text The text to tokenize.
+     * @return the emitted outputs
      */
     public Collection<PayloadToken<T>> tokenize(final String text) {
         final Collection<PayloadToken<T>> tokens = new ArrayList<>();
@@ -158,7 +160,7 @@ public class PayloadTrie<T> {
      * Returns true if the text contains contains one of the search terms. Else,
      * returns false.
      * 
-     * @param Text Specified text.
+     * @param text Specified text.
      * @return true if the text contains one of the search terms. Else, returns
      *         false.
      */
@@ -172,9 +174,7 @@ public class PayloadTrie<T> {
      * 
      * @param text        The character sequence to tokenize.
      * @param emitHandler The emit handler that will be used to parse the text.
-     * @return A collection of emits.
      */
-
     public void parseText(final CharSequence text, final PayloadEmitHandler<T> emitHandler) {
         PayloadState<T> currentState = getRootState();
 
@@ -348,6 +348,7 @@ public class PayloadTrie<T> {
 
     /**
      * Provides a fluent interface for constructing Trie instances with payloads.
+     * @param <T> The type of the emitted payload.
      *
      * @return The builder used to configure its Trie.
      */
@@ -412,6 +413,7 @@ public class PayloadTrie<T> {
          * Adds a keyword and a payload to the Trie's list of text search keywords.
          *
          * @param keyword The keyword to add to the list.
+         * @param payload the payload to add
          * @return This builder.
          * @throws NullPointerException if the keyword is null.
          */
